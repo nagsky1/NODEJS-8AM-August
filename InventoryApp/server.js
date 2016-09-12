@@ -1,6 +1,5 @@
 var configuration = require("./app/config/config");
-var mongodb = require("./app/config/mongodb");
-mongodb();
+var mongodb = require("./app/config/mongodb")();
 var app = require("./app/config/express")();
 
 app.listen(configuration.port);

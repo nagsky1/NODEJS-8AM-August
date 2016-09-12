@@ -1,10 +1,15 @@
 var express = require('express');
 
+
 module.exports = function () {
+    console.log("Express called");
     var app = express();
-    app.get("/", function (req, res) {
-        res.send("<h1>How r u</h1>")
-    });
+    app.set("views", "./app/views");
+    app.set("view engine", "ejs");
+
+
+    require("../routes/home.route")(app);
+    require("../routes/about.route")(app);
 
     return app;
 };
