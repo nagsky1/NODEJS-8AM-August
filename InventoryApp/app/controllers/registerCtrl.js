@@ -1,5 +1,6 @@
 var registerCtrl = {};
 var registerModel = require("../models/register.model");
+var security = require("../utils/security");
 
 registerCtrl.get = function (req, res) {
     //res.render("register");
@@ -9,6 +10,11 @@ registerCtrl.post = function (req, res) {
     console.log(req.body);
     createUser(req.body);
     res.send("Form posted");
+};
+
+registerCtrl.authenticate = function (req, res) {
+    checkUser(req, res);
+    //res.send("User Authenticated");
 };
 
 var getAllUsers = function (req, res) {
@@ -31,6 +37,28 @@ var createUser = function (user) {
         } else {
             console.log(user);
         }
+    });
+};
+
+var checkUser = function (req, res) {
+    var login = req.body;
+    login.password = security.encryptByMD5(login.password);
+    registerModel.findOne({
+        username: login.username,
+        password: login.password
+    }, function (err, user) {
+        if (err) {
+            res.send("error occurred");
+        } else {
+            if (user) {
+                res.render("home", {
+                    user: user
+                });
+            } else {
+                res.end("User doesnot exit");
+            }
+        };
+        // docs.forEach 
     });
 };
 
