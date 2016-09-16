@@ -2,11 +2,13 @@
 
 <head>
     <title>Home</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 </head>
 
 <body>
-    <h1>Welcome  <%= user.firstName %></h1>
-
+    <%- include('header') %>
+        <%- include(view) %>
+            <%- include('footer') %>
 </body>
 
 </html>

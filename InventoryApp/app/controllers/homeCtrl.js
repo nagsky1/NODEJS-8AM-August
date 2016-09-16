@@ -1,7 +1,9 @@
 var homeController = {};
 
 homeController.get = function (req, res) {
-    res.render("home");
+    res.render("home", {
+        view: "about"
+    });
 };
 homeController.post = function (req, res) {
     console.log(req.params);

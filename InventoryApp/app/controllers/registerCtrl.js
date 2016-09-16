@@ -3,13 +3,17 @@ var registerModel = require("../models/register.model");
 var security = require("../utils/security");
 
 registerCtrl.get = function (req, res) {
-    //res.render("register");
-    getAllUsers(req, res);
+    res.render("home", {
+        view: "register"
+    });
+    // getAllUsers(req, res);
 };
 registerCtrl.post = function (req, res) {
     console.log(req.body);
     createUser(req.body);
-    res.send("Form posted");
+    res.render("home", {
+        view: "login"
+    });
 };
 
 registerCtrl.authenticate = function (req, res) {
