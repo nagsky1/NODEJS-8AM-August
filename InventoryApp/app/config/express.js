@@ -1,5 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var morgan = require("morgan");
+var fs = require("fs");
+var path = require('path')
+
 
 module.exports = function () {
     console.log("Express called");
@@ -12,6 +16,14 @@ module.exports = function () {
 
     // parse application/json
     app.use(bodyParser.json());
+    var accessLogStream = fs.createWriteStream(path.join(__dirname, '../../../access.log'), {
+        flags: 'a'
+    });
+    //console.log(__dirname+'../../access.log');
+
+    app.use(morgan('combined', {
+        stream: accessLogStream
+    }))
 
     app.set("views", "./app/views");
     app.set("view engine", "ejs");
