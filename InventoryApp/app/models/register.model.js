@@ -15,6 +15,12 @@ var UserDetails = new Schema({
     }
 });
 
+UserDetails.methods.authenticate = function(password) {
+	var md5 = crypto.createHash('md5');
+	md5 = md5.update(password).digest('hex');
+
+	return this.password === md5;
+};
 
 UserDetails.pre('save', function (next) {
     if (this.password) {

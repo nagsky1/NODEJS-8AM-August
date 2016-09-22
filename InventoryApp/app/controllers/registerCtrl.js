@@ -8,6 +8,15 @@ registerCtrl.get = function (req, res) {
     });
     // getAllUsers(req, res);
 };
+
+registerCtrl.getlogin=function(req,res){
+     res.render("login", 
+         {
+			title: 'Log-in Form',
+			messages: req.flash('error') || req.flash('info')
+		}
+    );
+}
 registerCtrl.post = function (req, res) {
     console.log(req.body);
     createUser(req.body);

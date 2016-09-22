@@ -2,7 +2,11 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var morgan = require("morgan");
 var fs = require("fs");
-var path = require('path')
+var path = require('path');
+var passport = require('passport');
+var passportLocal = require('passport-local'),
+flash = require('connect-flash'),
+	session = require('express-session');
 
 
 module.exports = function () {
@@ -16,6 +20,8 @@ module.exports = function () {
 
     // parse application/json
     app.use(bodyParser.json());
+    
+    
     var accessLogStream = fs.createWriteStream(path.join(__dirname, '../../../access.log'), {
         flags: 'a'
     });
@@ -27,7 +33,15 @@ module.exports = function () {
 
     app.set("views", "./app/views");
     app.set("view engine", "ejs");
-
+   
+    app.use(session({
+		saveUninitialized: true,
+		resave: true,
+		secret: 'OurSuperSecretCookieSecret'
+	}));
+    app.use(flash());
+    app.use(passport.initialize());
+	app.use(passport.session());
 
     require("../routes/home.route")(app);
     require("../routes/about.route")(app);
