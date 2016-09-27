@@ -2,6 +2,7 @@ var homeController = {};
 
 homeController.get = function(req, res) {
   console.log(req.isAuthenticated());
+
   res.render("home", {
     view: "about"
   });
