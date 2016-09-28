@@ -3,14 +3,11 @@ var homeController = {};
 homeController.get = function(req, res) {
   console.log(req.isAuthenticated());
 
-  res.render("home", {
-    view: "about"
-  });
+  res.render("fileUpload");
 };
 
 
 homeController.post = function(req, res) {
-  console.log(req.params);
   res.send("Form posted");
 };
 homeController.put = function(req, res) {

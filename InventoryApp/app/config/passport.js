@@ -20,6 +20,6 @@ module.exports = function() {
 	});
 
 	require('./stratagies/local.js')();
-	require('./stratagies/facebook.js')();
+	//require('./stratagies/facebook.js')();
 	/*require('./strategies/twitter.js')();*/
 };
