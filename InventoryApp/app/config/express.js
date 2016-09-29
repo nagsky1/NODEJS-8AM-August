@@ -49,6 +49,7 @@ module.exports = function() {
 	require("../routes/about.route")(app);
 	require("../routes/register.route")(app);
 	require("../routes/fileUpload.route")(app);
+	require("../routes/products.route")(app);
 
 
 	return app;
