@@ -1,21 +1,97 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>
-		Login
-	</title>
+<html ng-app="demoApp">
 
-	<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-  	<link href="bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+<head>
+    <title>
+        Login
+    </title>
+
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
     <script src="bower_components/jquery/dist/jquery.js"></script>
-      <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-      <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
 
 </head>
-<body>
-<div class="container">
-  <h1>Products<h1>
-<%= products.query %>
 
+<body>
+    <div class="container" ng-controller="demoCtrl">
+        <h1>Products</h1>
+        <form method="post" action="/products">
+        <input type="text" name="productName">
+            <input type="submit">
+            <% if(products!=undefined){ %>
+                <% for(var i=0;i<products.items.length;i++){ %>
+            
+              <div class="row">
+                <div class="col-sm-6 col-md-4" >
+                    <div class="thumbnail">
+                       <img src="<%=  products.items[i].thumbnailImage %>" alt="..."> 
+                        <div class="caption">
+                            <h3><%= products.items[i].salePrice %></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ <% }} %>
+        
+            
+            
+               </form>
+<!--
+        <div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" placeholder="Search" ng-model="productName">
+                </div>
+
+                <div class="col-sm-2">
+                    <button ng-click="Search()" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+            <div></div>
+
+            <div class="row">
+                <div class="col-sm-6 col-md-4" ng-repeat="product in products">
+                    <div class="thumbnail">
+                        <img src="{{product.thumbnailImage}}" alt="...">
+                        <div class="caption">
+                            <h3>{{product.name|uppercase}}</h3>
+                            <p><a href="#" class="btn btn-primary" role="button">{{product.salePrice|currency:"INR"}}</a>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script>
+            angular.module("demoApp", [])
+                .controller("demoCtrl", function($scope, $http) {
+                    $scope.productName = "Samsung";
+                    $scope.Search = function() {
+                        $http.post("/products", {
+                                data: $scope.productName
+                            })
+                            .then(function(response) {
+                                console.log(response.data.items);
+                                $scope.products = response.data.items;
+                            }).
+                        catch(function(errorResponse) {
+
+                        });
+                    };
+
+                    function init() {
+                        $scope.Search();
+                    }
+                    init();
+
+                });
+
+        </script>-->
 </body>
+
 </html>
